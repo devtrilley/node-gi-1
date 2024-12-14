@@ -6,7 +6,7 @@ const addNote = (title, body) => {
   const notes = loadNotes();
   const duplicateNote = notes.find((note) => note.title === title);
 
-  debugger  
+  debugger;
 
   if (!duplicateNote) {
     notes.push({
@@ -17,6 +17,25 @@ const addNote = (title, body) => {
     console.log(chalk.green.inverse("New note added!"));
   } else {
     console.log(chalk.red.inverse("Note title taken!"));
+  }
+};
+
+const editNote = (title, body) => {
+  // Load in notes array of objects using loadNotes()
+  const notes = loadNotes();
+
+  // notes.find() returns note object in notes array
+  const noteToChange = notes.find((note) => {
+    return note.title === title;
+  });
+
+  if (noteToChange) {
+    // Change the found notes body to be the same as "body" command line arg
+    noteToChange.body = body;
+    saveNotes(notes); // Updates notes
+    console.log(chalk.bgGreen(`${title} has been edited!`)); // Log results with chalk
+  } else {
+    console.log(chalk.bgRed(`No note with the title: "${title}"`)); // Log error with chalk
   }
 };
 
@@ -76,4 +95,5 @@ module.exports = {
   removeNote: removeNote,
   listNotes: listNotes,
   readNote: readNote,
+  editNote: editNote,
 };

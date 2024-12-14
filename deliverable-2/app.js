@@ -28,6 +28,31 @@ yargs.command({
   },
 });
 
+// HERE IS THE ADDED COMMAND THAT THE CHALLENGE CALLS FOR
+// Create EDIT command
+yargs.command({
+  command: "edit", // name of command
+  describe: "Edit a note", // description of what command does
+  // Where we set up params for edit's command line args
+  builder: {
+    // We need to grab the title of the note to know which one to edit
+    title: {
+      describe: "Title of note to edit",
+      demandOption: true, // require this argument
+      type: "string",
+    },
+    // This is where we put the value of what we want in the note now
+    body: {
+      describe: "New text for the notes",
+      demandOption: true, // require this argument
+      type: "string",
+    },
+  },
+  handler: (argv) => {
+    notes.editNote(argv.title, argv.body);
+  },
+});
+
 // Create remove command
 yargs.command({
   command: "remove",
